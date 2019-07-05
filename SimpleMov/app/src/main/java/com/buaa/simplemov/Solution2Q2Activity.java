@@ -1,0 +1,13 @@
+package com.buaa.simplemov;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+public class Solution2Q2Activity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_solution2_q2);
+    }
+}
