@@ -97,6 +97,8 @@ public class Solution2C1Activity extends AppCompatActivity {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.thecatapi.com/")
                 .addConverterFactory(GsonConverterFactory.create())
+
+
                 .build();
 
         Call<List<Cat>> call = retrofit.create(ICatService.class).randomFiveCats();
