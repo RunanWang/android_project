@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -16,9 +18,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.buaa.simplemov.bean.Feed;
 import com.buaa.simplemov.bean.FeedResponse;
 import com.buaa.simplemov.newtork.IMiniDouyinService;
+import com.buaa.simplemov.utils.WaitForWhile;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Feed> mFeeds = new ArrayList<>();
     private FloatingActionButton refreshButton;
     private FloatingActionButton uploadButton;
+    private LottieAnimationView animation;
 
     private String[] mPermissionsArrays = new String[]{Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -51,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         initRecyclerView();
         refreshButton = findViewById(R.id.refreshButton);
         uploadButton = findViewById(R.id.uploadButton);
+        animation = findViewById(R.id.animation_view);
+        animation.setVisibility(View.GONE);
         if (!checkPermissionAllGranted(mPermissionsArrays)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(mPermissionsArrays, REQUEST_PERMISSION);
@@ -72,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 fetchFeed();
             }
         });
+        fetchFeed();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -112,7 +120,8 @@ public class MainActivity extends AppCompatActivity {
     public void fetchFeed() {
         //refreshButton.setText("requesting...");
         refreshButton.setEnabled(false);
-
+        mRv.setVisibility(View.GONE);
+        animation.setVisibility(View.VISIBLE);
         // if success, assign data to mFeeds and call mRv.getAdapter().notifyDataSetChanged()
         // don't forget to call resetRefreshBtn() after response received
         Retrofit retrofit = new Retrofit.Builder()
@@ -125,15 +134,20 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<FeedResponse> call, Response<FeedResponse> response) {
-                ;
-                //Log.d(TAG, "getCat() get cat = [" + call + "]");
-                //ArrayList<Cat> cats = new ArrayList<>();
-                //cats.add(catTransfer);
-                //Log.d(TAG, "onResponse() called with: call = [" + call + "], response = [" + response + "]");
                 mFeeds = response.body().getFeeds();
                 Log.d(TAG, "get feed is OK and feed is " + mFeeds);
                 mRv.getAdapter().notifyDataSetChanged();
                 resetRefreshBtn();
+                Handler handler = new Handler() {
+                    @Override
+                    public void handleMessage(Message msg) {
+                        super.handleMessage(msg);
+                        mRv.setVisibility(View.VISIBLE);
+                        animation.setVisibility(View.GONE);
+                    }
+                };
+                WaitForWhile waitForWhile = new WaitForWhile(handler);
+                waitForWhile.start();
             }
 
             @Override
@@ -162,4 +176,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
 }
