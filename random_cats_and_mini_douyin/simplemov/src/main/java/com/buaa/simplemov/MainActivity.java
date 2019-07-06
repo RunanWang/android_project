@@ -2,7 +2,9 @@ package com.buaa.simplemov;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -48,12 +50,26 @@ public class MainActivity extends AppCompatActivity {
     public Button mBtn;
     private Button mBtnRefresh;
 
+    private String[] mPermissionsArrays = new String[]{Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.RECORD_AUDIO};
+
+    private final static int REQUEST_PERMISSION = 123;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initRecyclerView();
         initBtns();
+        if (!checkPermissionAllGranted(mPermissionsArrays)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(mPermissionsArrays, REQUEST_PERMISSION);
+            }
+        } else {
+            Toast.makeText(MainActivity.this, "已经获取所有所需权限", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void initBtns() {
@@ -118,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void chooseImage() {
-        // TODO-C2 (4) Start Activity to select an image
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -129,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void chooseVideo() {
-        // TODO-C2 (5) Start Activity to select a video
         Intent intent = new Intent();
         intent.setType("video/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -178,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
 
         MultipartBody.Part coverImage = getMultipartFromUri("cover_image", mSelectedImage);
         MultipartBody.Part video = getMultipartFromUri("video", mSelectedVideo);
-        // TODO-C2 (6) Send Request to post a video with its cover image
         // if success, make a text Toast and show
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://test.androidcamp.bytedance.com/")
@@ -224,7 +237,6 @@ public class MainActivity extends AppCompatActivity {
         mBtnRefresh.setText("requesting...");
         mBtnRefresh.setEnabled(false);
 
-        // TODO-C2 (9) Send Request to fetch feed
         // if success, assign data to mFeeds and call mRv.getAdapter().notifyDataSetChanged()
         // don't forget to call resetRefreshBtn() after response received
         Retrofit retrofit = new Retrofit.Builder()
@@ -259,5 +271,19 @@ public class MainActivity extends AppCompatActivity {
     private void resetRefreshBtn() {
         mBtnRefresh.setText(R.string.refresh_feed);
         mBtnRefresh.setEnabled(true);
+    }
+
+    private boolean checkPermissionAllGranted(String[] permissions) {
+        // 6.0以下不需要
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+        for (String permission : permissions) {
+            if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+                // 只要有一个权限没有被授予, 则直接返回 false
+                return false;
+            }
+        }
+        return true;
     }
 }
