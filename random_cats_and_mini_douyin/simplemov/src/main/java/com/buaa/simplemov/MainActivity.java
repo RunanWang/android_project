@@ -3,36 +3,27 @@ package com.buaa.simplemov;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.buaa.simplemov.bean.Feed;
 import com.buaa.simplemov.bean.FeedResponse;
-import com.buaa.simplemov.bean.PostVideoResponse;
 import com.buaa.simplemov.newtork.IMiniDouyinService;
-import com.buaa.simplemov.utils.ResourceUtils;
 import com.bumptech.glide.Glide;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "DebugR";
     private RecyclerView mRv;
     private List<Feed> mFeeds = new ArrayList<>();
-    private Button mBtnRefresh;
+    private FloatingActionButton refreshButton;
     private FloatingActionButton uploadButton;
 
     private String[] mPermissionsArrays = new String[]{Manifest.permission.CAMERA,
@@ -58,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initRecyclerView();
-        mBtnRefresh = findViewById(R.id.btn_refresh);
+        refreshButton = findViewById(R.id.refreshButton);
         uploadButton = findViewById(R.id.uploadButton);
         if (!checkPermissionAllGranted(mPermissionsArrays)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -73,6 +64,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, UploadActivity.class);
                 startActivity(intent);
+            }
+        });
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fetchFeed();
             }
         });
     }
@@ -112,9 +109,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void fetchFeed(View view) {
-        mBtnRefresh.setText("requesting...");
-        mBtnRefresh.setEnabled(false);
+    public void fetchFeed() {
+        //refreshButton.setText("requesting...");
+        refreshButton.setEnabled(false);
 
         // if success, assign data to mFeeds and call mRv.getAdapter().notifyDataSetChanged()
         // don't forget to call resetRefreshBtn() after response received
@@ -148,8 +145,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void resetRefreshBtn() {
-        mBtnRefresh.setText(R.string.refresh_feed);
-        mBtnRefresh.setEnabled(true);
+        //refreshButton.setText(R.string.refresh_feed);
+        refreshButton.setEnabled(true);
     }
 
     private boolean checkPermissionAllGranted(String[] permissions) {
