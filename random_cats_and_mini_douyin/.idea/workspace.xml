@@ -18,10 +18,17 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simplemov/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/simplemov/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simplemov/simplemov.iml" beforeDir="false" afterPath="$PROJECT_DIR$/simplemov/simplemov.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simplemov/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/simplemov/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/simplemov/src/main/java/com/buaa/simplemov/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/simplemov/src/main/java/com/buaa/simplemov/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/simplemov/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/simplemov/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simplemov/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/simplemov/src/main/res/values/colors.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,12 +48,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simplemov/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="742">
-              <caret line="27" column="40" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
-              <folding>
-                <element signature="e#534#552#0" expanded="true" />
-                <element signature="e#895#913#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="728">
+              <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
             </state>
           </provider>
           <provider editor-type-id="android-manifest" />
@@ -55,10 +58,9 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simplemov/src/main/java/com/buaa/simplemov/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="74" column="36" selection-start-line="74" selection-start-column="36" selection-end-line="74" selection-end-column="36" />
+            <state relative-caret-position="458">
+              <caret line="72" selection-start-line="72" selection-end-line="72" />
               <folding>
-                <element signature="method#onCreate#0;class#MainActivity#0" />
                 <element signature="class#MyViewHolder#0;class#MainActivity#0" />
                 <element signature="e#2964#2965#0" expanded="true" />
                 <element signature="e#3003#3004#0" expanded="true" />
@@ -73,14 +75,34 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/simplemov/src/main/res/layout/activity_upload.xml">
+          <provider selected="true" editor-type-id="text-editor" />
+          <provider editor-type-id="android-designer2" />
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/simplemov/src/main/java/com/buaa/simplemov/UploadActivity.java">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simplemov/src/main/res/layout/activity_main.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="490">
-              <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
+            <state relative-caret-position="294">
+              <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
             </state>
           </provider>
           <provider editor-type-id="android-designer2" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/simplemov/src/main/res/values/colors.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="224">
+              <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -111,8 +133,10 @@
         <option value="$PROJECT_DIR$/simplemov/build.gradle" />
         <option value="$PROJECT_DIR$/simplemov/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/simplemov/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/simplemov/src/main/java/com/buaa/simplemov/MainActivity.java" />
+        <option value="$PROJECT_DIR$/simplemov/src/main/res/drawable/ic_file_upload_black_24dp.xml" />
+        <option value="$PROJECT_DIR$/simplemov/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/simplemov/src/main/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/simplemov/src/main/java/com/buaa/simplemov/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -172,6 +196,32 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="simplemov" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="random_cats_and_mini_douyin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="random_cats_and_mini_douyin" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="simplemov" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="random_cats_and_mini_douyin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="random_cats_and_mini_douyin" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="simplemov" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="drawable" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="random_cats_and_mini_douyin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="random_cats_and_mini_douyin" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="simplemov" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="values" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -185,6 +235,9 @@
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
   <component name="RecentsManager">
+    <key name="android.template.packageName">
+      <recent name="com.buaa.simplemov" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\android_project\random_cats_and_mini_douyin\simplemov" />
     </key>
@@ -277,7 +330,7 @@
       <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
       <option name="FORCE_STOP_RUNNING_APP" value="true" />
       <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="true" />
       <option name="PREFERRED_AVD" value="" />
       <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
       <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
@@ -358,7 +411,7 @@
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.32956153" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" weight="0.3286119" />
       <window_info anchor="bottom" id="Version Control" order="6" weight="0.3286119" />
-      <window_info anchor="bottom" id="Build" order="7" weight="0.3286119" />
+      <window_info anchor="bottom" id="Build" order="7" visible="true" weight="0.3286119" />
       <window_info anchor="bottom" id="Debug" order="8" weight="0.6930693" />
       <window_info anchor="bottom" id="Android Profiler" order="9" />
       <window_info anchor="right" id="Preview" />
@@ -516,24 +569,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/simplemov/src/main/res/drawable/ic_file_upload_black_24dp.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="3" column="103" selection-start-line="3" selection-start-column="103" selection-end-line="3" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simplemov/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simplemov/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/simplemov/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="742">
-          <caret line="27" column="40" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
-          <folding>
-            <element signature="e#534#552#0" expanded="true" />
-            <element signature="e#895#913#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="728">
+          <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
         </state>
       </provider>
       <provider editor-type-id="android-manifest" />
     </entry>
     <entry file="file://$PROJECT_DIR$/simplemov/src/main/java/com/buaa/simplemov/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="74" column="36" selection-start-line="74" selection-start-column="36" selection-end-line="74" selection-end-column="36" />
+        <state relative-caret-position="458">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
           <folding>
-            <element signature="method#onCreate#0;class#MainActivity#0" />
             <element signature="class#MyViewHolder#0;class#MainActivity#0" />
             <element signature="e#2964#2965#0" expanded="true" />
             <element signature="e#3003#3004#0" expanded="true" />
@@ -547,13 +617,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simplemov/src/main/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/simplemov/src/main/res/layout/activity_upload.xml">
+      <provider selected="true" editor-type-id="text-editor" />
       <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simplemov/src/main/java/com/buaa/simplemov/UploadActivity.java">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>

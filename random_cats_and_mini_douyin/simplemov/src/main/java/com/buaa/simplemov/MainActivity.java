@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRv;
     private List<Feed> mFeeds = new ArrayList<>();
     private Button mBtnRefresh;
+    private FloatingActionButton uploadButton;
 
     private String[] mPermissionsArrays = new String[]{Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initRecyclerView();
         mBtnRefresh = findViewById(R.id.btn_refresh);
+        uploadButton = findViewById(R.id.uploadButton);
         if (!checkPermissionAllGranted(mPermissionsArrays)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(mPermissionsArrays, REQUEST_PERMISSION);
@@ -64,6 +67,14 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(MainActivity.this, "已经获取所有所需权限", Toast.LENGTH_SHORT).show();
         }
+        uploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, UploadActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
