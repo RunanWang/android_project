@@ -12,9 +12,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="439cccce-8d2e-4dd7-b450-d874cfb1ac16" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simplemov/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/simplemov/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/simplemov/src/main/java/com/buaa/simplemov/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/simplemov/src/main/java/com/buaa/simplemov/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simplemov/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/simplemov/src/main/res/layout/activity_main.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,7 +42,7 @@
         <entry file="file://$PROJECT_DIR$/simplemov/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="742">
-              <caret line="27" column="40" lean-forward="true" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
+              <caret line="27" column="40" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
               <folding>
                 <element signature="e#534#552#0" expanded="true" />
                 <element signature="e#895#913#0" expanded="true" />
@@ -45,24 +52,35 @@
           <provider editor-type-id="android-manifest" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simplemov/src/main/java/com/buaa/simplemov/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="219" column="37" selection-start-line="219" selection-start-column="37" selection-end-line="219" selection-end-column="37" />
+            <state relative-caret-position="264">
+              <caret line="74" column="36" selection-start-line="74" selection-start-column="36" selection-end-line="74" selection-end-column="36" />
               <folding>
                 <element signature="method#onCreate#0;class#MainActivity#0" />
+                <element signature="class#MyViewHolder#0;class#MainActivity#0" />
                 <element signature="e#2964#2965#0" expanded="true" />
                 <element signature="e#3003#3004#0" expanded="true" />
                 <element signature="method#initRecyclerView#0;class#MainActivity#0" />
                 <element signature="e#4285#4286#0" expanded="true" />
                 <element signature="e#4337#4338#0" expanded="true" />
-                <element signature="method#chooseImage#0;class#MainActivity#0" />
-                <element signature="method#chooseVideo#0;class#MainActivity#0" />
                 <element signature="method#fetchFeed#0;class#MainActivity#0" />
+                <element signature="method#resetRefreshBtn#0;class#MainActivity#0" />
+                <element signature="method#checkPermissionAllGranted#0;class#MainActivity#0" />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/simplemov/src/main/res/layout/activity_main.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="490">
+              <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
     </leaf>
@@ -94,6 +112,7 @@
         <option value="$PROJECT_DIR$/simplemov/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/simplemov/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/simplemov/src/main/java/com/buaa/simplemov/MainActivity.java" />
+        <option value="$PROJECT_DIR$/simplemov/src/main/res/layout/activity_main.xml" />
       </list>
     </option>
   </component>
@@ -342,6 +361,7 @@
       <window_info anchor="bottom" id="Build" order="7" weight="0.3286119" />
       <window_info anchor="bottom" id="Debug" order="8" weight="0.6930693" />
       <window_info anchor="bottom" id="Android Profiler" order="9" />
+      <window_info anchor="right" id="Preview" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" />
@@ -447,10 +467,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simplemov/src/main/res/layout/activity_main.xml">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="android-designer2" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/simplemov/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="28">
@@ -503,7 +519,7 @@
     <entry file="file://$PROJECT_DIR$/simplemov/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="742">
-          <caret line="27" column="40" lean-forward="true" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
+          <caret line="27" column="40" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
           <folding>
             <element signature="e#534#552#0" expanded="true" />
             <element signature="e#895#913#0" expanded="true" />
@@ -514,21 +530,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/simplemov/src/main/java/com/buaa/simplemov/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="219" column="37" selection-start-line="219" selection-start-column="37" selection-end-line="219" selection-end-column="37" />
+        <state relative-caret-position="264">
+          <caret line="74" column="36" selection-start-line="74" selection-start-column="36" selection-end-line="74" selection-end-column="36" />
           <folding>
             <element signature="method#onCreate#0;class#MainActivity#0" />
+            <element signature="class#MyViewHolder#0;class#MainActivity#0" />
             <element signature="e#2964#2965#0" expanded="true" />
             <element signature="e#3003#3004#0" expanded="true" />
             <element signature="method#initRecyclerView#0;class#MainActivity#0" />
             <element signature="e#4285#4286#0" expanded="true" />
             <element signature="e#4337#4338#0" expanded="true" />
-            <element signature="method#chooseImage#0;class#MainActivity#0" />
-            <element signature="method#chooseVideo#0;class#MainActivity#0" />
             <element signature="method#fetchFeed#0;class#MainActivity#0" />
+            <element signature="method#resetRefreshBtn#0;class#MainActivity#0" />
+            <element signature="method#checkPermissionAllGranted#0;class#MainActivity#0" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simplemov/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="490">
+          <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
   </component>
 </project>
