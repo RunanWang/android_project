@@ -5,5 +5,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UploadActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/relative_layout"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom = "true"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="5dp"
+            android:visibility="visible"
+            android:id="@+id/buttonPanel"
+            >
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:id="@+id/cover_image"
+                android:src="@mipmap/ic_launcher"
+                />
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:id="@+id/video"
+                android:src="@mipmap/ic_launcher"
+                />
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:id="@+id/post"
+                android:src="@mipmap/ic_launcher"
+                />
+        </android.support.v7.widget.LinearLayoutCompat>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/preview"
+            android:layout_above="@id/buttonPanel"
+            />
+        <!--<com.bytedance.player.VideoPlayerIJK-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_above="@id/buttonPanel"-->
+            <!--/>-->
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

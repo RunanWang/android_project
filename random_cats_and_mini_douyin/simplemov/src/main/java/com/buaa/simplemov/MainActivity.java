@@ -102,10 +102,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
                 ImageView iv = (ImageView) viewHolder.itemView;
-
                 String url = mFeeds.get(i).getImage_url();
                 //Log.d(TAG, "onBindViewHolder() called with: viewHolder = [" + viewHolder + "], i = [" + i + "]");
                 Glide.with(iv.getContext()).load(url).into(iv);
+
             }
 
             @Override
