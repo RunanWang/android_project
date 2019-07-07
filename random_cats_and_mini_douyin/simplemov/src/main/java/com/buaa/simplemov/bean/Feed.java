@@ -33,6 +33,16 @@ public class Feed {
     private String image_url;
     @SerializedName("video_url")
     private String video_url;
+    @SerializedName("createdAt")
+    private String createdAt;
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public String getStudent_id() {
         return student_id;
@@ -73,6 +83,7 @@ public class Feed {
                 ", user_name='" + user_name + '\'' +
                 ", image_url='" + image_url + '\'' +
                 ", video_url='" + video_url + '\'' +
+                ", createdAt='" + createdAt + '\'' +
                 '}';
     }
 
