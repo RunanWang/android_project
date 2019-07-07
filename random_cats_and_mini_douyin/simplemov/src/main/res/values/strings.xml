@@ -9,4 +9,8 @@
     <string name="post_it">post it!</string>
     <string name="refresh_feed">refresh feed</string>
     <string name="success_try_refresh">SUCCESS, try refresh!</string>
+
+    <string name="menu_friend">朋友</string>
+    <string name="menu_location">位置</string>
+    <string name="menu_username">二营长</string>
 </resources>
