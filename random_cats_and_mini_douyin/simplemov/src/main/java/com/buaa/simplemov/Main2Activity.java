@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,6 +50,7 @@ public class Main2Activity extends AppCompatActivity {
     private LottieAnimationView animation;
     private List<Feed> mFeeds = new ArrayList<>();
     private MyRecycleViewAdapter adapter;
+    private SwipeRefreshLayout swipeRefresh;
     private static final String TAG = "debugR";
 
     @Override
@@ -64,7 +66,7 @@ public class Main2Activity extends AppCompatActivity {
         animation = findViewById(R.id.animation_view2);
         animation.setVisibility(View.GONE);
         mRv = findViewById(R.id.recycle_view);
-
+        swipeRefresh = findViewById(R.id.swipe_refresh);
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -85,6 +87,13 @@ public class Main2Activity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(Main2Activity.this, UploadActivity.class);
                 startActivity(intent);
+            }
+        });
+        swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchFeed();
             }
         });
         fetchFeed();
@@ -134,6 +143,7 @@ public class Main2Activity extends AppCompatActivity {
                         Log.d(TAG, "get mFeeds =[" +mFeeds + "]");
                         mRv.setVisibility(View.VISIBLE);
                         animation.setVisibility(View.GONE);
+                        swipeRefresh.setRefreshing(false);
                     }
                 };
                 WaitForWhile waitForWhile = new WaitForWhile(handler);
