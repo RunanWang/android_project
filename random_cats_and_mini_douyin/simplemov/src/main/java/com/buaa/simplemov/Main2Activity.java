@@ -180,9 +180,21 @@ public class Main2Activity extends AppCompatActivity {
         mRv.setAdapter(new RecyclerView.Adapter() {
             @NonNull
             @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup viewGroup, int i) {
                 View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.feed_item, viewGroup, false);
-                return new MyViewHolder(view);
+                final MyViewHolder holder = new MyViewHolder(view);
+                holder.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int position = holder.getAdapterPosition();
+                        Feed feed = mFeeds.get(position);
+                        Intent intent = new Intent(viewGroup.getContext(),VideoPlayActivity.class);
+                        intent.putExtra("videoUrl",feed.getVideo_url());
+                        intent.putExtra("user",feed.getUser_name());
+                        startActivity(intent);
+                    }
+                });
+                return holder;
             }
 
             @Override
