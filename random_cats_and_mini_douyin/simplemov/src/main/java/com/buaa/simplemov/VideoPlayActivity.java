@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 
 import com.buaa.simplemov.player.VideoPlayerIJK;
@@ -40,6 +41,7 @@ public class VideoPlayActivity extends AppCompatActivity {
     private VideoPlayerIJK ijkPlayer;
     private SeekBar seekBar;
     private Thread seekBarThr;
+    private ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class VideoPlayActivity extends AppCompatActivity {
         setTitle("ijkPlayer");
         //mSelectedVideo = getIntent().getData();
         ijkPlayer = findViewById(R.id.ijkPlayer);
+        imageButton = findViewById(R.id.imageButton);
 
         //加载native库
         try {
@@ -74,18 +77,30 @@ public class VideoPlayActivity extends AppCompatActivity {
         Log.d(TAG, "call download");
         downloadFile3(videoUrl);
 
-
-        findViewById(R.id.buttonPlay).setOnClickListener(new View.OnClickListener() {
+        imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ijkPlayer.start();
+                if(ijkPlayer.isPlaying()){
+                    ijkPlayer.pause();
+                    imageButton.setImageResource(R.drawable.ic_play);
+                }else{
+                    ijkPlayer.start();
+                    imageButton.setImageResource(R.drawable.ic_pause);
+                }
+
             }
         });
 
-        findViewById(R.id.buttonPause).setOnClickListener(new View.OnClickListener() {
+        ijkPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ijkPlayer.pause();
+                if(ijkPlayer.isPlaying()){
+                    ijkPlayer.pause();
+                    imageButton.setImageResource(R.drawable.ic_play);
+                }else{
+                    ijkPlayer.start();
+                    imageButton.setImageResource(R.drawable.ic_pause);
+                }
             }
         });
 

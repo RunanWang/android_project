@@ -4,7 +4,13 @@
     <item
         android:id="@+id/settings"
         android:icon="@drawable/ic_settings"
-        android:title="Settings"
+        android:title="权限设置"
         app:showAsAction="never"
     />
+    <item
+        android:id="@+id/menu_refresh"
+        android:icon="@drawable/ic_settings"
+        android:title="刷新"
+        app:showAsAction="never"
+        />
 </menu>

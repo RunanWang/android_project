@@ -76,7 +76,9 @@ public class Main2Activity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 mDrawerLayout.closeDrawers();
                 switch (menuItem.getItemId()) {
-
+                    case R.id.menu_refresh:
+                        fetchFeed();
+                        break;
                 }
                 return true;
             }
