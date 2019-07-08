@@ -44,6 +44,7 @@ public class UploadActivity extends AppCompatActivity {
     private ActionSheetDialog imageDialog;
     private ActionSheetDialog videoDialog;
     private LoadingDialog loadingDialog;
+    private ImageView done;
     private final int INIT_IMAGE = 1;
     private final int INIT_VIDEO = 2;
     private final int INIT_POST = 3;
@@ -235,17 +236,26 @@ public class UploadActivity extends AppCompatActivity {
                 ImageView pic = findViewById(R.id.preview);
                 pic.setImageURI(imageUri);
                 imageFile = new File(ResourceUtils.getRealPath(UploadActivity.this, imageUri));
+                done = findViewById(R.id.cover_image);
+                done.setImageResource(R.drawable.ic_check_black_24dp);
             } else if (requestCode == PICK_VIDEO) {
                 videoUri = data.getData();
                 videoFile = new File(ResourceUtils.getRealPath(UploadActivity.this, videoUri));
+                done = findViewById(R.id.video);
+                done.setImageResource(R.drawable.ic_check_black_24dp);
             } else if (requestCode == TAKE_PHOTO) {
                 setPic();
+                done = findViewById(R.id.cover_image);
+                done.setImageResource(R.drawable.ic_check_black_24dp);
             }else if(requestCode == TAKE_VIDEO){
                 videoUri = data.getData();
                 videoFile = new File(ResourceUtils.getRealPath(UploadActivity.this,videoUri));
-
+                done = findViewById(R.id.video);
+                done.setImageResource(R.drawable.ic_check_black_24dp);
             }
         }
+        done = findViewById(R.id.post);
+        done.setImageResource(R.drawable.ic_cloud_upload_black_24dp);
     }
 
     private void setPic() {
@@ -340,6 +350,8 @@ public class UploadActivity extends AppCompatActivity {
                             loadingDialog.dismiss();
                             imageFile = null;
                             videoFile = null;
+                            done = findViewById(R.id.post);
+                            done.setImageResource(R.drawable.ic_check_black_24dp);
                         } else {
                             Toast.makeText(getApplicationContext(),
                                     "post failed", Toast.LENGTH_SHORT).show();
