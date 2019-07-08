@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -16,6 +19,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.buaa.simplemov.bean.PostVideoResponse;
 import com.buaa.simplemov.newtork.IMiniDouyinService;
@@ -55,6 +59,7 @@ public class UploadActivity extends AppCompatActivity {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.RECORD_AUDIO};
+    private final static int REQUEST_PERMISSION = 123;
     private boolean checkPermissionAllGranted(String[] permissions) {
         // 6.0以下不需要
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
@@ -102,14 +107,14 @@ public class UploadActivity extends AppCompatActivity {
                         });
             }
             break;
-            case INIT_POST:{
+            case INIT_POST: {
                 loadingDialog = new LoadingDialog(this);
-                if(imageUri!=null || videoUri !=null) {
-                    loadingDialog.setMessage("loading");
+                if (imageUri != null || videoUri != null) {
+                    loadingDialog.setMessage("uploading");
                     loadingDialog.show();
                     uploadVideo();
-                }else{
-                    Toast.makeText(this,"封面和视频内容的选择没有完成",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "封面和视频内容的选择没有完成", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -120,9 +125,16 @@ public class UploadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
+        if (!checkPermissionAllGranted(mPermissionsArrays)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(mPermissionsArrays, REQUEST_PERMISSION);
+            }
+        }
         ImageView selectImage = findViewById(R.id.cover_image);
         ImageView selectVideo = findViewById(R.id.video);
         ImageView post = findViewById(R.id.post);
+        View button = findViewById(R.id.buttonPanel);
+        button.bringToFront();
         selectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,11 +153,38 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 initDialog(INIT_POST);
-                uploadVideo();
-
             }
         });
-
+        final ImageView preview = findViewById(R.id.preview);
+        final VideoView videoView = findViewById(R.id.video_preview);
+        preview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(videoUri!=null){
+                    v.setVisibility(View.GONE);
+                    videoView.setVisibility(View.VISIBLE);
+                    videoView.setVideoURI(videoUri);
+                    videoView.start();
+                }
+            }
+        });
+        videoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    if(((VideoView)v).isPlaying()){
+                        ((VideoView)v).pause();
+                    }else{
+                        ((VideoView)v).start();
+                    }
+                }
+        });
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                preview.setVisibility(View.VISIBLE);
+                videoView.setVisibility(View.GONE);
+            }
+        });
     }
 
     void findImageInAlbum() {
@@ -161,10 +200,10 @@ public class UploadActivity extends AppCompatActivity {
     private void takePhoto() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         imageFile = Utils.getOutputMediaFile(Utils.MEDIA_TYPE_IMAGE);
-        if(imageFile!=null){
-            imageUri = FileProvider.getUriForFile(this,"com.bytedance.simplemov",imageFile);
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-            startActivityForResult(takePictureIntent,TAKE_PHOTO);
+        if (imageFile != null) {
+            imageUri = FileProvider.getUriForFile(this, "com.bytedance.simplemov", imageFile);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            startActivityForResult(takePictureIntent, TAKE_PHOTO);
         }
     }
 
@@ -178,49 +217,87 @@ public class UploadActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(findVideo, "Select Video"),
                 PICK_VIDEO);
     }
+
     private void takeVideo() {
         Toast.makeText(this, "in take video", Toast.LENGTH_SHORT).show();
-
+        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        if(takeVideoIntent.resolveActivity(getPackageManager())!=null){
+            startActivityForResult(takeVideoIntent,TAKE_VIDEO);
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
-            if(requestCode == PICK_IMAGE  && null !=data){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == PICK_IMAGE && null != data) {
                 imageUri = data.getData();
                 ImageView pic = findViewById(R.id.preview);
                 pic.setImageURI(imageUri);
                 imageFile = new File(ResourceUtils.getRealPath(UploadActivity.this, imageUri));
-            }else if(requestCode == PICK_VIDEO){
+            } else if (requestCode == PICK_VIDEO) {
                 videoUri = data.getData();
                 videoFile = new File(ResourceUtils.getRealPath(UploadActivity.this, videoUri));
-            }else if(requestCode == TAKE_PHOTO){
+            } else if (requestCode == TAKE_PHOTO) {
                 setPic();
+            }else if(requestCode == TAKE_VIDEO){
+                videoUri = data.getData();
+                videoFile = new File(ResourceUtils.getRealPath(UploadActivity.this,videoUri));
+
             }
         }
     }
-    private void setPic(){
+
+    private void setPic() {
         ImageView imageView = findViewById(R.id.preview);
         int targetW = imageView.getWidth();
         int targetH = imageView.getHeight();
         BitmapFactory.Options bmOpt = new BitmapFactory.Options();
         bmOpt.inJustDecodeBounds = true;
         //todo 根据缩放比例读取文件，生成Bitmap
-        BitmapFactory.decodeFile(imageFile.getAbsolutePath(),bmOpt);
+        BitmapFactory.decodeFile(imageFile.getAbsolutePath(), bmOpt);
         int photoW = bmOpt.outWidth;
         int photoH = bmOpt.outHeight;
-        int scaleFactor = Math.min(photoW/targetW,photoH/targetH);
+        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
         //todo 如果存在预览方向改变，进行图片旋转
         bmOpt.inJustDecodeBounds = false;
         bmOpt.inSampleSize = scaleFactor;
         bmOpt.inPurgeable = true;
         //todo 如果存在预览方向改变，进行图片旋转
-        Bitmap bmp = BitmapFactory.decodeFile(imageFile.getAbsolutePath(),bmOpt);
-        imageView.setImageBitmap(bmp);
+        Bitmap bmp = BitmapFactory.decodeFile(imageFile.getAbsolutePath(), bmOpt);
+        try {
+            bmp = rotateImage(bmp, imageFile.getAbsolutePath());
+        }catch (Exception e){
+         e.printStackTrace();
+        }finally {
+            imageView.setImageBitmap(bmp);
+        }
     }
 
-//    private MultipartBody.Part getMultipartFromUri(String name, Uri uri) {
+    private Bitmap rotateImage(Bitmap bitmap, String path) throws Exception {
+        ExifInterface srcExif = new ExifInterface(path);
+        Matrix matrix = new Matrix();
+        int orietation = srcExif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                ExifInterface.ORIENTATION_NORMAL);
+        int angle = 0;
+        switch (orietation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                angle = 90;
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                angle = 180;
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                angle = 270;
+                break;
+        }
+        matrix.postRotate(angle);
+        return  Bitmap.createBitmap(bitmap,0,0,
+                bitmap.getWidth(),bitmap.getHeight(),matrix,true);
+    }
+
+
+    //    private MultipartBody.Part getMultipartFromUri(String name, Uri uri) {
 //        // if NullPointerException thrown, try to allow storage permission in system settings
 //        try {
 //
@@ -232,17 +309,17 @@ public class UploadActivity extends AppCompatActivity {
 //            return null;
 //        }
 //    }
-    private  MultipartBody.Part getMultipartFromFile(String name,File f){
+    private MultipartBody.Part getMultipartFromFile(String name, File f) {
         try {
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), f);
             return MultipartBody.Part.createFormData(name, f.getName(), requestFile);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    void uploadVideo(){
+    void uploadVideo() {
         // TODO-C2 (6) Send Request to post a video with its cover image
         // if success, make a text Toast and show
         Retrofit retrofit = new Retrofit.Builder()
@@ -251,19 +328,22 @@ public class UploadActivity extends AppCompatActivity {
                 .build();
         MultipartBody.Part cover_Image = getMultipartFromFile("cover_image", imageFile);
         MultipartBody.Part video = getMultipartFromFile("video", videoFile);
-        retrofit.create(IMiniDouyinService.class).createVideo("16231187", "chenjinyu",
-                cover_Image,video).
+        retrofit.create(IMiniDouyinService.class).createVideo("16231187", "lalala",
+                cover_Image, video).
                 enqueue(new Callback<PostVideoResponse>() {
                     @Override
                     public void onResponse(Call<PostVideoResponse> call, Response<PostVideoResponse> response) {
                         PostVideoResponse result = response.body();
-                        if(result != null && result.isSuccess()) {
+                        if (result != null && result.isSuccess()) {
                             Toast.makeText(getApplicationContext(),
                                     "post success", Toast.LENGTH_SHORT).show();
                             loadingDialog.dismiss();
-                        }else{
+                            imageFile = null;
+                            videoFile = null;
+                        } else {
                             Toast.makeText(getApplicationContext(),
                                     "post failed", Toast.LENGTH_SHORT).show();
+                            loadingDialog.dismiss();
                         }
                     }
                     @Override
