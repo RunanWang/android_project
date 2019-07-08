@@ -1,21 +1,29 @@
 package com.buaa.simplemov;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.buaa.simplemov.player.VideoPlayerIJK;
 import com.buaa.simplemov.player.VideoPlayerListener;
+import com.buaa.simplemov.utils.DoubleClickUtils;
 import com.buaa.simplemov.utils.NetworkUtils;
 import com.buaa.simplemov.utils.ResourceUtils;
 import com.buaa.simplemov.utils.SeekBarThread;
@@ -42,13 +50,22 @@ public class VideoPlayActivity extends AppCompatActivity {
     private SeekBar seekBar;
     private Thread seekBarThr;
     private ImageButton imageButton;
+    private LottieAnimationView animation;
+    private LinearLayout layout;
+    private ImageView favorite;
+    private int videoHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_play);
+        animation = findViewById(R.id.animation_view3);
+        animation.setVisibility(View.VISIBLE);
         videoUrl = getIntent().getStringExtra("videoUrl");
         user = getIntent().getStringExtra("user");
+        layout = findViewById(R.id.button_seekBar);
+        favorite = findViewById(R.id.favorite);
+        favorite.setVisibility(View.GONE);
         int mCurrentOrientation = getResources().getConfiguration().orientation;
 
         if (mCurrentOrientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -80,10 +97,10 @@ public class VideoPlayActivity extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ijkPlayer.isPlaying()){
+                if (ijkPlayer.isPlaying()) {
                     ijkPlayer.pause();
                     imageButton.setImageResource(R.drawable.ic_play);
-                }else{
+                } else {
                     ijkPlayer.start();
                     imageButton.setImageResource(R.drawable.ic_pause);
                 }
@@ -94,13 +111,21 @@ public class VideoPlayActivity extends AppCompatActivity {
         ijkPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ijkPlayer.isPlaying()){
+                if (DoubleClickUtils.isFastDoubleClick()) {
+                    favorite.setVisibility(View.VISIBLE);
+                    Snackbar.make(seekBar, "已点赞", Snackbar.LENGTH_SHORT).show();
+                }
+
+
+                if (ijkPlayer.isPlaying()) {
                     ijkPlayer.pause();
+
                     imageButton.setImageResource(R.drawable.ic_play);
-                }else{
+                } else {
                     ijkPlayer.start();
                     imageButton.setImageResource(R.drawable.ic_pause);
                 }
+
             }
         });
 
@@ -174,6 +199,14 @@ public class VideoPlayActivity extends AppCompatActivity {
             String dirName = mSDCardPath + "/SimpleMov/";
             String dest = dirName + videoUrl.substring(videoUrl.lastIndexOf("/") + 1);
             ijkPlayer.setVideoPath(dest);
+//            videoHeight = ijkPlayer.getVideoHeight();
+//            Log.d(TAG, "video height is " + videoHeight);
+//            ijkPlayer.setMinimumHeight(videoHeight);
+//            ijkPlayer.setMinimumWidth(ijkPlayer.getVideoWidth());
+//            Log.d(TAG, "video width is " + ijkPlayer.getVideoWidth());
+//            Log.d(TAG, "player height is " + ijkPlayer.getHeight());
+            animation.setVisibility(View.GONE);
+
 
         }
     };
