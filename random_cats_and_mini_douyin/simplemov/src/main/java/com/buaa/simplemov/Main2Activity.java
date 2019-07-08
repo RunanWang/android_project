@@ -1,11 +1,15 @@
 package com.buaa.simplemov;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -50,19 +54,31 @@ public class Main2Activity extends AppCompatActivity {
     private LottieAnimationView animation;
     private List<Feed> mFeeds = new ArrayList<>();
     private MyRecycleViewAdapter adapter;
+    private FloatingActionButton uploadButton;
     private SwipeRefreshLayout swipeRefresh;
     private static final String TAG = "debugR";
+
+    private String[] mPermissionsArrays = new String[]{Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.RECORD_AUDIO};
+    private final static int REQUEST_PERMISSION = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!checkPermissionAllGranted(mPermissionsArrays)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(mPermissionsArrays, REQUEST_PERMISSION);
+            }
+        }
         setContentView(R.layout.activity_main2);
         Toolbar toolbar2 = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar2);
         mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navView = findViewById(R.id.nav_view);
         ActionBar actionBar = getSupportActionBar();
-        FloatingActionButton uploadButton = findViewById(R.id.fab_update);
+        uploadButton = findViewById(R.id.fab_update);
         animation = findViewById(R.id.animation_view2);
         animation.setVisibility(View.GONE);
         mRv = findViewById(R.id.recycle_view);
@@ -76,9 +92,7 @@ public class Main2Activity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 mDrawerLayout.closeDrawers();
                 switch (menuItem.getItemId()) {
-                    case R.id.menu_refresh:
-                        fetchFeed();
-                        break;
+
                 }
                 return true;
             }
@@ -105,6 +119,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar, menu);
+
         return true;
     }
 
@@ -114,6 +129,17 @@ public class Main2Activity extends AppCompatActivity {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 break;
+            case R.id.menu_refresh:
+                fetchFeed();
+                break;
+            case R.id.settings:
+                if (!checkPermissionAllGranted(mPermissionsArrays)) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        requestPermissions(mPermissionsArrays, REQUEST_PERMISSION);
+                    }
+                }else{
+                    Snackbar.make(uploadButton,"权限已获取",Snackbar.LENGTH_SHORT).show();
+                }
         }
         return true;
     }
@@ -146,6 +172,7 @@ public class Main2Activity extends AppCompatActivity {
                         mRv.setVisibility(View.VISIBLE);
                         animation.setVisibility(View.GONE);
                         swipeRefresh.setRefreshing(false);
+                        Snackbar.make(uploadButton,"刷新已完成",Snackbar.LENGTH_SHORT).show();
                     }
                 };
                 WaitForWhile waitForWhile = new WaitForWhile(handler);
@@ -214,5 +241,19 @@ public class Main2Activity extends AppCompatActivity {
                 return mFeeds.size();
             }
         });
+    }
+
+    private boolean checkPermissionAllGranted(String[] permissions) {
+        // 6.0以下不需要
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+        for (String permission : permissions) {
+            if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+                // 只要有一个权限没有被授予, 则直接返回 false
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -236,4 +236,12 @@ public class VideoPlayerIJK extends FrameLayout {
             mMediaPlayer.seekTo(l);
         }
     }
+
+    public int getVideoHeight() {
+        return ((IjkMediaPlayer) mMediaPlayer).getVideoHeight();
+    }
+
+    public int getVideoWidth() {
+        return mMediaPlayer.getVideoWidth();
+    }
 }
