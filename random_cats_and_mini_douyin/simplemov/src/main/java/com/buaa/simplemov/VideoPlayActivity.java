@@ -3,6 +3,7 @@ package com.buaa.simplemov;
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -14,9 +15,21 @@ import android.widget.SeekBar;
 
 import com.buaa.simplemov.player.VideoPlayerIJK;
 import com.buaa.simplemov.player.VideoPlayerListener;
+import com.buaa.simplemov.utils.NetworkUtils;
 import com.buaa.simplemov.utils.ResourceUtils;
 import com.buaa.simplemov.utils.SeekBarThread;
 
+import java.io.File;
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okio.BufferedSink;
+import okio.Okio;
+import okio.Sink;
 import retrofit2.http.Url;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
@@ -25,8 +38,6 @@ public class VideoPlayActivity extends AppCompatActivity {
     private String user;
     private static final String TAG = "debugR";
     private VideoPlayerIJK ijkPlayer;
-    private MediaPlayer player;
-    private SurfaceHolder holder;
     private SeekBar seekBar;
     private Thread seekBarThr;
 
@@ -60,7 +71,9 @@ public class VideoPlayActivity extends AppCompatActivity {
         }
         ijkPlayer.setListener(new VideoPlayerListener());
         //ijkPlayer.setVideoResource(R.raw.yuminhong);
-        ijkPlayer.setVideoPath(videoUrl);
+        Log.d(TAG, "call download");
+        downloadFile3(videoUrl);
+
 
         findViewById(R.id.buttonPlay).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,4 +149,72 @@ public class VideoPlayActivity extends AppCompatActivity {
             //currentTv.setText(formatTime(msg.what));
         }
     };
+    private Handler handler2 = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            //float progress = msg.what/ijkPlayer.get
+
+            String mSDCardPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+            String dirName = mSDCardPath + "/SimpleMov/";
+            String dest = dirName + videoUrl.substring(videoUrl.lastIndexOf("/") + 1);
+            ijkPlayer.setVideoPath(dest);
+
+        }
+    };
+
+
+    private void downloadFile3(String inputUrl) {
+        //下载路径，如果路径无效了，可换成你的下载路径
+        final String url = inputUrl;
+        final long startTime = System.currentTimeMillis();
+        Log.i("DOWNLOAD", "startTime=" + startTime);
+
+        Request request = new Request.Builder().url(url).build();
+        new OkHttpClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                // 下载失败
+                e.printStackTrace();
+                Log.i("DOWNLOAD", "download failed");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Sink sink = null;
+                BufferedSink bufferedSink = null;
+                try {
+                    String mSDCardPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+                    String dirName = mSDCardPath + "/SimpleMov/";
+                    File file = new File(dirName);
+                    //不存在创建
+                    if (!file.exists()) {
+                        file.mkdir();
+                    }
+                    File dest = new File(dirName, url.substring(url.lastIndexOf("/") + 1));
+                    if (!dest.exists()) {
+                        Log.d(TAG, "download place = " + dest);
+                        Log.d(TAG, "file name = " + url.substring(url.lastIndexOf("/") + 1));
+
+                        sink = Okio.sink(dest);
+                        bufferedSink = Okio.buffer(sink);
+                        bufferedSink.writeAll(response.body().source());
+
+                        bufferedSink.close();
+                        Log.i(TAG, "download success");
+                        Log.i("DOWNLOAD", "totalTime=" + (System.currentTimeMillis() - startTime));
+                    }
+                    handler2.sendEmptyMessage(2);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.i("DOWNLOAD", "download failed");
+                } finally {
+                    if (bufferedSink != null) {
+                        bufferedSink.close();
+                    }
+
+                }
+            }
+        });
+    }
 }

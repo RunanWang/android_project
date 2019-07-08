@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -7,23 +10,42 @@
     <com.buaa.simplemov.player.VideoPlayerIJK
         android:id="@+id/ijkPlayer"
         android:layout_width="wrap_content"
-        android:layout_height="240dp"
-        />
+        android:layout_height="match_parent"
+        android:layout_marginStart="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonPlay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Play" />
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Play"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBar"
+        app:layout_constraintTop_toTopOf="@+id/ijkPlayer"
+        app:layout_constraintVertical_bias="0.896"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/buttonPause"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pause" />
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Pause"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBar"
+        app:layout_constraintTop_toTopOf="@+id/ijkPlayer"
+        app:layout_constraintVertical_bias="0.971"
+        tools:layout_editor_absoluteX="27dp" />
 
     <android.widget.SeekBar
         android:id="@+id/seekBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ijkPlayer"
+        app:layout_constraintTop_toTopOf="@+id/ijkPlayer"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="16dp" />
+</android.support.constraint.ConstraintLayout>
