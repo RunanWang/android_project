@@ -28,6 +28,14 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
+                android:id="@+id/visible"
+                android:src="@drawable/ic_visibility_black_24dp"
+                />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
                 android:id="@+id/cover_image"
                 android:src="@drawable/ic_add_a_photo_black_24dp"
                 />

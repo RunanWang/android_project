@@ -234,6 +234,26 @@ public class UploadActivity extends AppCompatActivity {
                 }
             }
         });
+        final ImageView visible = findViewById(R.id.visible);
+        visible.setOnClickListener(new View.OnClickListener() {
+            private boolean visible = true;
+            @Override
+            public void onClick(View v) {
+                ImageView view = (ImageView) v;
+                if(visible){
+                    visible = false;
+                    mSurfaceView.setVisibility(View.GONE);
+                    record.setVisibility(View.GONE);
+                    view.setImageResource(R.drawable.ic_visibility_red_24dp);
+                }else{
+                    visible =true;
+                    mSurfaceView.setVisibility(View.VISIBLE);
+                    record.setVisibility(View.VISIBLE);
+                    view.setImageResource(R.drawable.ic_visibility_black_24dp);
+
+                }
+            }
+        });
     }
     void initCamera(){
         mSurfaceView = findViewById(R.id.img);
@@ -321,6 +341,9 @@ public class UploadActivity extends AppCompatActivity {
         mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
         mMediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH));
         videoFile =  getOutputMediaFile(MEDIA_TYPE_VIDEO);
+        if(videoFile!=null) {
+            videoUri = FileProvider.getUriForFile(this, "com.bytedance.simplemov", videoFile);
+        }
         mMediaRecorder.setOutputFile(videoFile.toString());
         mMediaRecorder.setPreviewDisplay(mSurfaceView.getHolder().getSurface());
         mMediaRecorder.setOrientationHint(rotationDegree);
@@ -518,6 +541,4 @@ public class UploadActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
 }
