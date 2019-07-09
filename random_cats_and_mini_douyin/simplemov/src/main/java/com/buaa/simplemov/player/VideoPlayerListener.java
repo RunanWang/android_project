@@ -26,6 +26,7 @@ public class VideoPlayerListener implements IMediaPlayer.OnBufferingUpdateListen
     @Override
     public void onPrepared(IMediaPlayer iMediaPlayer) {
 //        iMediaPlayer.start();
+
     }
 
     @Override

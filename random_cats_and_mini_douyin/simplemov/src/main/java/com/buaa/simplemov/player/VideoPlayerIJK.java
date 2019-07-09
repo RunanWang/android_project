@@ -244,4 +244,8 @@ public class VideoPlayerIJK extends FrameLayout {
     public int getVideoWidth() {
         return mMediaPlayer.getVideoWidth();
     }
+
+    public SurfaceView getSurfaceView(){
+        return surfaceView;
+    }
 }

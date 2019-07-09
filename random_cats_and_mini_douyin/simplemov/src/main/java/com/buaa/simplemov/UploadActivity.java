@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.ExifInterface;
@@ -40,6 +41,7 @@ import com.hb.dialog.dialog.LoadingDialog;
 import com.hb.dialog.myDialog.ActionSheetDialog;
 
 import java.io.File;
+import java.lang.reflect.Parameter;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -244,11 +246,14 @@ public class UploadActivity extends AppCompatActivity {
                     visible = false;
                     mSurfaceView.setVisibility(View.GONE);
                     record.setVisibility(View.GONE);
+                    preview.setVisibility(View.VISIBLE);
                     view.setImageResource(R.drawable.ic_visibility_red_24dp);
                 }else{
                     visible =true;
                     mSurfaceView.setVisibility(View.VISIBLE);
                     record.setVisibility(View.VISIBLE);
+                    preview.setVisibility(View.GONE);
+                    videoView.setVisibility(View.GONE);
                     view.setImageResource(R.drawable.ic_visibility_black_24dp);
 
                 }
@@ -266,7 +271,6 @@ public class UploadActivity extends AppCompatActivity {
                 try {
                     mCamera = getCamera(CAMERA_TYPE);
                     mCamera.setPreviewDisplay(surfaceHolder);
-                    mCamera.startPreview();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -287,7 +291,14 @@ public class UploadActivity extends AppCompatActivity {
             releaseCameraAndPreview();
         }
         Camera cam = Camera.open(position);
-        //todo 摄像头添加属性，例是否自动对焦，设置旋转方向等
+        mCamera = cam;
+         Camera.Parameters parameters =mCamera.getParameters();
+        parameters.setPictureFormat(PixelFormat.JPEG);
+        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_AUTO);
+        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);//1连续对焦
+        mCamera.setParameters(parameters);
+        mCamera.startPreview();
+        mCamera.cancelAutoFocus();
         int degree =  getCameraDisplayOrientation(position);
         rotationDegree = degree;
         cam.setDisplayOrientation(rotationDegree);
@@ -333,7 +344,6 @@ public class UploadActivity extends AppCompatActivity {
     }
 
     private boolean prepareVideoRecorder() {
-        //todo 准备MediaRecorder
         mMediaRecorder = new MediaRecorder();
         mCamera.unlock();
         mMediaRecorder.setCamera(mCamera);
@@ -358,7 +368,6 @@ public class UploadActivity extends AppCompatActivity {
         }
     }
     private void releaseMediaRecorder() {
-        //todo 释放MediaRecorder
         mMediaRecorder.stop();
         mMediaRecorder.reset();
         mMediaRecorder.release();
@@ -445,7 +454,7 @@ public class UploadActivity extends AppCompatActivity {
         BitmapFactory.decodeFile(imageFile.getAbsolutePath(), bmOpt);
         int photoW = bmOpt.outWidth;
         int photoH = bmOpt.outHeight;
-        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+        int scaleFactor = 1;
         //todo 如果存在预览方向改变，进行图片旋转
         bmOpt.inJustDecodeBounds = false;
         bmOpt.inSampleSize = scaleFactor;

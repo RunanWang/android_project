@@ -1,1 +1,1 @@
-include ':app', ':simplemov'
+include ':simplemov'

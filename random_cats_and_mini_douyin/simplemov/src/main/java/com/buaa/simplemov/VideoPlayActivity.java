@@ -40,6 +40,7 @@ import okio.BufferedSink;
 import okio.Okio;
 import okio.Sink;
 import retrofit2.http.Url;
+import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class VideoPlayActivity extends AppCompatActivity {
@@ -105,6 +106,17 @@ public class VideoPlayActivity extends AppCompatActivity {
                     imageButton.setImageResource(R.drawable.ic_pause);
                 }
 
+            }
+        });
+
+        ijkPlayer.setListener(new VideoPlayerListener(){
+            @Override
+            public void onPrepared(IMediaPlayer iMediaPlayer) {
+                videoHeight = ijkPlayer.getVideoHeight();
+                int videoWidth = ijkPlayer.getVideoWidth();
+                if(videoHeight<videoWidth){
+                    ijkPlayer.getSurfaceView().setRotation(90);
+                }
             }
         });
 
@@ -206,8 +218,6 @@ public class VideoPlayActivity extends AppCompatActivity {
 //            Log.d(TAG, "video width is " + ijkPlayer.getVideoWidth());
 //            Log.d(TAG, "player height is " + ijkPlayer.getHeight());
             animation.setVisibility(View.GONE);
-
-
         }
     };
 
